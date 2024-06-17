@@ -71,7 +71,17 @@ function createResultFile(result: Record<string, any>) {
   fs.writeFileSync(resultFilePath, JSON.stringify(result, null, 2));
 }
 
+function clerResultFile() {
+  try {
+    const resultFilePath = path.join(__dirname, "result.json");
+    fs.writeFileSync(resultFilePath, "");
+  } catch (e) {
+    console.log("File not found");
+  }
+}
+
 function start() {
+  clerResultFile();
   const files = createFileList();
   const readedFiles = readJsonFile(files);
   const result = noneTranslateValue("en", readedFiles);
